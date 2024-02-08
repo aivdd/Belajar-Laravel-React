@@ -1,0 +1,41 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": ["react"],
+    "rules": {
+        "react/jsx-first-prop-new-line": [2, "multiline"],
+        "react/jsx-max-props-per-line": [
+            2,
+            { "maximum": 1, "when": "multiline" }
+        ],
+        "react/jsx-indent-props": [2, 2],
+        "react/jsx-closing-bracket-location": [2, "tag-aligned"],
+        "react/react-in-jsx-scope": "on",
+        "react/prop-types": "off",
+        "no-console": 2,
+        "prettier/prettier": [
+            "error",
+            {
+                "trailingComma": "all",
+                "tabWidth": 2,
+                "semi": false,
+                "singleQuote": true,
+                "bracketSpacing": true,
+                "eslintIntegration": true,
+                "printWidth": 80
+            }
+        ]
+    }
+}

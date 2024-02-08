@@ -1,0 +1,217 @@
+import DataTable from "@/Components/DataTable";
+import Alert from "@/Components/Alert";
+import InertiaLink from "@/Components/InertiaLink";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, Link } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
+import React, { useEffect, useState } from "react";
+
+export default function Book({
+    auth,
+    books,
+    successMessage,
+    canManageCategories,
+}) {
+    const [alert, setAlert] = useState(false);
+    const [deletingBook, setDeletingBook] = useState(null);
+
+    useEffect(() => {
+        if (successMessage) {
+            setAlert(successMessage);
+        }
+    }, [successMessage]);
+
+    const handleDelete = (uuid) => {
+        Inertia.delete(route("book.destroy", { uuid }));
+        console.log(`Deleting book with UUID: ${uuid}`);
+        setDeletingBook(null);
+    };
+
+    const rowHeight = 200;
+    const columns = [
+        {
+            field: "id",
+            headerName: "ID",
+            type: "number",
+            width: 90,
+        },
+        {
+            field: "cover",
+            headerName: "Cover",
+            type: "string",
+            width: 200,
+        },
+        {
+            field: "judul",
+            headerName: "Judul",
+            type: "string",
+            sortable: false,
+            width: 300,
+        },
+        {
+            field: "category",
+            headerName: "Kategori",
+            type: "string",
+            sortable: false,
+            width: 200,
+        },
+        {
+            field: "jumlah",
+            headerName: "Jumlah",
+            width: 150,
+        },
+        {
+            field: "actions",
+            type: "actions",
+            headerName: "Actions",
+            width: 150,
+            cellClassName: "actions",
+            getActions: ({ row }) => [
+                <InertiaLink
+                    href={route("book.show", { uuid: row.uuid })}
+                    className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    detail
+                </InertiaLink>,
+                <InertiaLink
+                    href={route("book.edit", { uuid: row.uuid })}
+                    className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    edit
+                </InertiaLink>,
+                <button
+                    key="delete"
+                    onClick={() => setDeletingBook(row)}
+                    className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    hapus
+                </button>,
+            ],
+            autoWidth: true,
+        },
+    ];
+    const rows = books.map((book) => ({
+        id: book.id,
+        uuid: book.uuid,
+        cover: book.cover,
+        judul: book.judul,
+        category: book.category.name,
+        jumlah: book.jumlah,
+    }));
+
+    return (
+        <AuthenticatedLayout
+            user={auth.user}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Daftar Buku
+                </h2>
+            }
+            canManageCategories={canManageCategories}
+        >
+            <Head title="Daftar Buku" />
+
+            <div className="py-12">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6 text-gray-900">
+                            <div>
+                                {alert && (
+                                    <Alert
+                                        severity="success"
+                                        message={successMessage}
+                                    />
+                                )}
+                            </div>
+                            <Link
+                                href={route("book.create")}
+                                className="ml-4 mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                            >
+                                Tambah
+                            </Link>
+
+                            <a
+                                href="export-books"
+                                className="underline ml-4 mb-4 text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                Export Excel
+                            </a>
+                            <DataTable
+                                columns={columns}
+                                rows={rows}
+                                rowHeight={rowHeight}
+                            />
+                            {deletingBook && (
+                                <div className="fixed z-10 inset-0 overflow-y-auto">
+                                    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                        <div className="fixed inset-0 transition-opacity">
+                                            <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+                                        </div>
+                                        <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+                                        &#8203;
+                                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                                <div className="sm:flex sm:items-start">
+                                                    <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                        <svg
+                                                            className="h-6 w-6 text-red-600"
+                                                            stroke="currentColor"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M6 18L18 6M6 6l12 12"
+                                                            ></path>
+                                                        </svg>
+                                                    </div>
+                                                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                                        <h3 className="text-lg leading-6 font-medium text-gray-900">
+                                                            Hapus Buku
+                                                        </h3>
+                                                        <div className="mt-2">
+                                                            <p className="text-sm text-gray-500">
+                                                                Apakah Anda
+                                                                yakin ingin
+                                                                menghapus buku
+                                                                ini?
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                                <button
+                                                    onClick={() =>
+                                                        handleDelete(
+                                                            deletingBook.uuid,
+                                                        )
+                                                    }
+                                                    type="button"
+                                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                                >
+                                                    Hapus
+                                                </button>
+                                                <button
+                                                    onClick={() =>
+                                                        setDeletingBook(null)
+                                                    }
+                                                    type="button"
+                                                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+                                                >
+                                                    Batal
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AuthenticatedLayout>
+    );
+}
