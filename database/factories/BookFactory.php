@@ -18,10 +18,10 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
-        $categoryIds = [1,2,3];
+        $categoryIds = [1, 2, 3];
         return [
             'category_id' => $this->faker->randomElement($categoryIds),
-            'user_id' => $this->faker->numberBetween(2, 3), 
+            'user_id' => $this->faker->numberBetween(2, 3),
             'judul' => $this->faker->sentence,
             'deskripsi' => $this->faker->paragraph,
             'jumlah' => $this->faker->numberBetween(1, 20),

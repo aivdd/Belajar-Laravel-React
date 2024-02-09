@@ -21,39 +21,76 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function (){
-    return Inertia::render('Auth/Login',[
+Route::get('/', function () {
+    return Inertia::render('Auth/Login', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
+        'canRegister' => Route::has('register'),
     ]);
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name(
+        'profile.edit'
+    );
+    Route::patch('/profile', [ProfileController::class, 'update'])->name(
+        'profile.update'
+    );
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name(
+        'profile.destroy'
+    );
 
     Route::get('/books', [BookController::class, 'index'])->name('books');
-    Route::get('/book/create', [BookController::class, 'create'])->name('book.create');
+    Route::get('/book/create', [BookController::class, 'create'])->name(
+        'book.create'
+    );
     Route::post('/book', [BookController::class, 'store'])->name('book.store');
 
-    Route::get('/categories', [BookCategoryController::class, 'index'])->name('categories.index');
-    Route::get('/categories/create', [BookCategoryController::class, 'create'])->name('categories.create');
-    Route::post('/categories', [BookCategoryController::class, 'store'])->name('categories.store');
-    Route::get('/categories/{uuid}/edit', [BookCategoryController::class, 'edit'])->name('categories.edit');
-    Route::patch('/categories/{uuid}', [BookCategoryController::class, 'update'])->name('categories.update');
-    Route::delete('/category/{uuid}', [BookCategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/categories', [BookCategoryController::class, 'index'])->name(
+        'categories.index'
+    );
+    Route::get('/categories/create', [
+        BookCategoryController::class,
+        'create',
+    ])->name('categories.create');
+    Route::post('/categories', [BookCategoryController::class, 'store'])->name(
+        'categories.store'
+    );
+    Route::get('/categories/{uuid}/edit', [
+        BookCategoryController::class,
+        'edit',
+    ])->name('categories.edit');
+    Route::patch('/categories/{uuid}', [
+        BookCategoryController::class,
+        'update',
+    ])->name('categories.update');
+    Route::delete('/category/{uuid}', [
+        BookCategoryController::class,
+        'destroy',
+    ])->name('category.destroy');
 
-    Route::get('/export-books', [BookController::class, 'export'])->name('export.books');
+    Route::get('/export-books', [BookController::class, 'export'])->name(
+        'export.books'
+    );
 });
 
 Route::middleware(['auth', 'ensureOwner'])->group(function () {
-    Route::get('/book/{uuid}', [BookController::class, 'show'])->name('book.show');
-    Route::get('/book/{uuid}/edit', [BookController::class, 'edit'])->name('book.edit');
-    Route::patch('/book/{uuid}', [BookController::class, 'update'])->name('book.update');
-    Route::delete('/book/{uuid}', [BookController::class, 'destroy'])->name('book.destroy');
-    
-    Route::get('/categories/{uuid}', [BookCategoryController::class, 'show'])->name('categories.show');
+    Route::get('/book/{uuid}', [BookController::class, 'show'])->name(
+        'book.show'
+    );
+    Route::get('/book/{uuid}/edit', [BookController::class, 'edit'])->name(
+        'book.edit'
+    );
+    Route::patch('/book/{uuid}', [BookController::class, 'update'])->name(
+        'book.update'
+    );
+    Route::delete('/book/{uuid}', [BookController::class, 'destroy'])->name(
+        'book.destroy'
+    );
+
+    Route::get('/categories/{uuid}', [
+        BookCategoryController::class,
+        'show',
+    ])->name('categories.show');
 });
 
 Route::get('/storage/{path}', function ($path) {
@@ -64,4 +101,4 @@ Route::get('/storage/{path}', function ($path) {
     abort(404, 'File Not Found');
 })->where('path', '.*');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

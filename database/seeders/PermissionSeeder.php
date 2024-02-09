@@ -29,20 +29,20 @@ class PermissionSeeder extends Seeder
         $user = \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
-            'password'=> 'detik123'
+            'password' => 'detik123',
         ]);
         $user->assignRole($role2);
         $user->givePermissionTo('manage categories');
         $user = \App\Models\User::factory()->create([
             'name' => 'User1',
             'email' => 'user1@example.com',
-            'password'=> 'detik123'
+            'password' => 'detik123',
         ]);
         $user->assignRole($role1);
         $user = \App\Models\User::factory()->create([
             'name' => 'User2',
             'email' => 'user2@example.com',
-            'password'=> 'detik123'
+            'password' => 'detik123',
         ]);
         $user->assignRole($role1);
     }

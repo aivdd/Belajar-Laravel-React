@@ -1,10 +1,10 @@
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
-import { useForm } from "@inertiajs/react";
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head } from '@inertiajs/react'
+import { useForm } from '@inertiajs/react'
 
 export default function BookEdit({ auth, categories, book }) {
     const { data, setData, patch, progress, errors, processing } = useForm({
@@ -14,12 +14,12 @@ export default function BookEdit({ auth, categories, book }) {
         category_id: book?.category_id,
         cover: null,
         files: null,
-    });
+    })
 
     const editBuku = (e) => {
-        e.preventDefault();
-        patch(route("book.update", book?.uuid));
-    };
+        e.preventDefault()
+        patch(route('book.update', book?.uuid))
+    }
 
     return (
         <AuthenticatedLayout
@@ -50,7 +50,7 @@ export default function BookEdit({ auth, categories, book }) {
                                         id="judul"
                                         value={data.judul}
                                         onChange={(e) =>
-                                            setData("judul", e.target.value)
+                                            setData('judul', e.target.value)
                                         }
                                         type="text"
                                         className="mt-1 block w-full"
@@ -69,7 +69,7 @@ export default function BookEdit({ auth, categories, book }) {
                                         id="deskripsi"
                                         value={data.deskripsi}
                                         onChange={(e) =>
-                                            setData("deskripsi", e.target.value)
+                                            setData('deskripsi', e.target.value)
                                         }
                                         type="text"
                                         className="mt-1 block w-full"
@@ -88,7 +88,7 @@ export default function BookEdit({ auth, categories, book }) {
                                         id="jumlah"
                                         value={data.jumlah}
                                         onChange={(e) =>
-                                            setData("jumlah", e.target.value)
+                                            setData('jumlah', e.target.value)
                                         }
                                         type="number"
                                         className="mt-1 block w-full"
@@ -109,7 +109,7 @@ export default function BookEdit({ auth, categories, book }) {
                                         value={data.category_id}
                                         onChange={(e) =>
                                             setData(
-                                                "category_id",
+                                                'category_id',
                                                 e.target.value,
                                             )
                                         }
@@ -141,7 +141,7 @@ export default function BookEdit({ auth, categories, book }) {
                                         //value={data.cover}
                                         accept="image/jpeg, image/jpg, image/png"
                                         onChange={(e) =>
-                                            setData("cover", e.target.files[0])
+                                            setData('cover', e.target.files[0])
                                         }
                                     />
                                     {progress && (
@@ -169,7 +169,7 @@ export default function BookEdit({ auth, categories, book }) {
                                         //value={data.files}
                                         accept="application/pdf"
                                         onChange={(e) =>
-                                            setData("files", e.target.files[0])
+                                            setData('files', e.target.files[0])
                                         }
                                     />
                                     {progress && (
@@ -194,5 +194,5 @@ export default function BookEdit({ auth, categories, book }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

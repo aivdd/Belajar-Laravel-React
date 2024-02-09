@@ -1,19 +1,19 @@
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head, useForm } from '@inertiajs/react'
 
 export default function CategoriesEdit({ auth, name, uuid }) {
     const { data, setData, patch, errors, processing } = useForm({
         name: name,
-    });
+    })
 
     const editCategory = (e) => {
-        e.preventDefault();
-        patch(route("categories.update", uuid));
-    };
+        e.preventDefault()
+        patch(route('categories.update', uuid))
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -39,7 +39,7 @@ export default function CategoriesEdit({ auth, name, uuid }) {
                                         id="name"
                                         value={data.name}
                                         onChange={(e) =>
-                                            setData("name", e.target.value)
+                                            setData('name', e.target.value)
                                         }
                                         type="text"
                                         className="mt-1 block w-full"
@@ -61,5 +61,5 @@ export default function CategoriesEdit({ auth, name, uuid }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

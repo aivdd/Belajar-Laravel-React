@@ -1,47 +1,47 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
-import { Inertia } from "@inertiajs/inertia";
-import DataTable from "@/Components/DataTable";
-import InertiaLink from "@/Components/InertiaLink";
-import { useState } from "react";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head, Link } from '@inertiajs/react'
+import { Inertia } from '@inertiajs/inertia'
+import DataTable from '@/Components/DataTable'
+import InertiaLink from '@/Components/InertiaLink'
+import { useState } from 'react'
 
 export default function Categories({ auth, categories }) {
-    const [deletingCategory, setDeletingCategory] = useState(null);
+    const [deletingCategory, setDeletingCategory] = useState(null)
 
     const handleDelete = (uuid) => {
-        Inertia.delete(route("category.destroy", { uuid }));
-        console.log(`Deleting category with UUID: ${uuid}`);
-        setDeletingCategory(null);
-    };
+        Inertia.delete(route('category.destroy', { uuid }))
+        console.log(`Deleting category with UUID: ${uuid}`)
+        setDeletingCategory(null)
+    }
 
     const columns = [
         {
-            field: "id",
-            headerName: "ID",
-            type: "number",
+            field: 'id',
+            headerName: 'ID',
+            type: 'number',
             width: 90,
         },
         {
-            field: "name",
-            headerName: "Nama Kategori",
-            type: "string",
+            field: 'name',
+            headerName: 'Nama Kategori',
+            type: 'string',
             width: 400,
         },
         {
-            field: "actions",
-            type: "actions",
-            headerName: "Actions",
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
             width: 250,
-            cellClassName: "actions",
+            cellClassName: 'actions',
             getActions: ({ row }) => [
                 <InertiaLink
-                    href={route("categories.show", { uuid: row.uuid })}
+                    href={route('categories.show', { uuid: row.uuid })}
                     className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     daftar buku
                 </InertiaLink>,
                 <InertiaLink
-                    href={route("categories.edit", { uuid: row.uuid })}
+                    href={route('categories.edit', { uuid: row.uuid })}
                     className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     edit
@@ -56,12 +56,12 @@ export default function Categories({ auth, categories }) {
             ],
             autoWidth: true,
         },
-    ];
+    ]
     const rows = categories.map((category) => ({
         id: category.id,
         uuid: category.uuid,
         name: category.name,
-    }));
+    }))
 
     return (
         <AuthenticatedLayout
@@ -79,10 +79,10 @@ export default function Categories({ auth, categories }) {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <Link
-                                href={route("categories.create")}
+                                href={route('categories.create')}
                                 className="ml-4 mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                             >
-                                Tambah{" "}
+                                Tambah{' '}
                             </Link>
                             <DataTable columns={columns} rows={rows} />
                             {deletingCategory && (
@@ -159,5 +159,5 @@ export default function Categories({ auth, categories }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

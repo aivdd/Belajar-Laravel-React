@@ -11,7 +11,6 @@ use App\Models\BookCategory;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Str;
 
-
 class Book extends Model
 {
     use HasFactory;

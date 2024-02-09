@@ -1,9 +1,9 @@
-import { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
-import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { useState } from 'react'
+import ApplicationLogo from '@/Components/ApplicationLogo'
+import Dropdown from '@/Components/Dropdown'
+import NavLink from '@/Components/NavLink'
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
+import { Link } from '@inertiajs/react'
 
 export default function Authenticated({
     user,
@@ -12,7 +12,7 @@ export default function Authenticated({
     canManageCategories,
 }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+        useState(false)
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -28,14 +28,14 @@ export default function Authenticated({
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("books")}
-                                    active={route().current("books")}
+                                    href={route('books')}
+                                    active={route().current('books')}
                                 >
                                     Buku
                                 </NavLink>
                                 <NavLink
-                                    href={route("categories.index")}
-                                    active={route().current("categories.index")}
+                                    href={route('categories.index')}
+                                    active={route().current('categories.index')}
                                 >
                                     Kategori
                                 </NavLink>
@@ -71,12 +71,12 @@ export default function Authenticated({
 
                                     <Dropdown.Content>
                                         <Dropdown.Link
-                                            href={route("profile.edit")}
+                                            href={route('profile.edit')}
                                         >
                                             Profile
                                         </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route("logout")}
+                                            href={route('logout')}
                                             method="post"
                                             as="button"
                                         >
@@ -105,8 +105,8 @@ export default function Authenticated({
                                     <path
                                         className={
                                             !showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
+                                                ? 'inline-flex'
+                                                : 'hidden'
                                         }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -116,8 +116,8 @@ export default function Authenticated({
                                     <path
                                         className={
                                             showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
+                                                ? 'inline-flex'
+                                                : 'hidden'
                                         }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -132,20 +132,20 @@ export default function Authenticated({
 
                 <div
                     className={
-                        (showingNavigationDropdown ? "block" : "hidden") +
-                        " sm:hidden"
+                        (showingNavigationDropdown ? 'block' : 'hidden') +
+                        ' sm:hidden'
                     }
                 >
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
-                            href={route("books")}
-                            active={route().current("books")}
+                            href={route('books')}
+                            active={route().current('books')}
                         >
                             Buku
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
-                            href={route("categories.index")}
-                            active={route().current("categories.index")}
+                            href={route('categories.index')}
+                            active={route().current('categories.index')}
                         >
                             Kategori
                         </ResponsiveNavLink>
@@ -162,12 +162,12 @@ export default function Authenticated({
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
+                            <ResponsiveNavLink href={route('profile.edit')}>
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
-                                href={route("logout")}
+                                href={route('logout')}
                                 as="button"
                             >
                                 Log Out
@@ -187,5 +187,5 @@ export default function Authenticated({
 
             <main>{children}</main>
         </div>
-    );
+    )
 }

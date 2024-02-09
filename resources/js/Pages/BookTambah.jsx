@@ -1,10 +1,10 @@
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
-import { useForm } from "@inertiajs/react";
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head } from '@inertiajs/react'
+import { useForm } from '@inertiajs/react'
 
 export default function BookTambah({ auth, categories }) {
     const { data, setData, post, progress, errors, processing } = useForm({
@@ -15,12 +15,12 @@ export default function BookTambah({ auth, categories }) {
         user_id: auth.user.id,
         cover: null,
         files: null,
-    });
+    })
 
     const tambahBuku = (e) => {
-        e.preventDefault();
-        post(route("book.store"));
-    };
+        e.preventDefault()
+        post(route('book.store'))
+    }
 
     return (
         <AuthenticatedLayout
@@ -47,7 +47,7 @@ export default function BookTambah({ auth, categories }) {
                                         id="judul"
                                         value={data.judul}
                                         onChange={(e) =>
-                                            setData("judul", e.target.value)
+                                            setData('judul', e.target.value)
                                         }
                                         type="text"
                                         className="mt-1 block w-full"
@@ -66,7 +66,7 @@ export default function BookTambah({ auth, categories }) {
                                         id="deskripsi"
                                         value={data.deskripsi}
                                         onChange={(e) =>
-                                            setData("deskripsi", e.target.value)
+                                            setData('deskripsi', e.target.value)
                                         }
                                         type="text"
                                         className="mt-1 block w-full"
@@ -85,7 +85,7 @@ export default function BookTambah({ auth, categories }) {
                                         id="jumlah"
                                         value={data.jumlah}
                                         onChange={(e) =>
-                                            setData("jumlah", e.target.value)
+                                            setData('jumlah', e.target.value)
                                         }
                                         type="number"
                                         className="mt-1 block w-full"
@@ -106,7 +106,7 @@ export default function BookTambah({ auth, categories }) {
                                         value={data.category_id}
                                         onChange={(e) =>
                                             setData(
-                                                "category_id",
+                                                'category_id',
                                                 e.target.value,
                                             )
                                         }
@@ -138,7 +138,7 @@ export default function BookTambah({ auth, categories }) {
                                         // value={data.cover}
                                         accept="image/jpeg, image/jpg, image/png"
                                         onChange={(e) =>
-                                            setData("cover", e.target.files[0])
+                                            setData('cover', e.target.files[0])
                                         }
                                     />
                                     {progress && (
@@ -166,7 +166,7 @@ export default function BookTambah({ auth, categories }) {
                                         // value={data.files}
                                         accept="application/pdf"
                                         onChange={(e) =>
-                                            setData("files", e.target.files[0])
+                                            setData('files', e.target.files[0])
                                         }
                                     />
                                     {progress && (
@@ -191,5 +191,5 @@ export default function BookTambah({ auth, categories }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

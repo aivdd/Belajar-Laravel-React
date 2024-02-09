@@ -19,7 +19,11 @@ class EnsureOwnerMiddleware
         $uuid = $request->route('uuid');
         $book = Book::where('uuid', $uuid)->first();
 
-        if (auth()->user()->hasRole('admin')) {
+        if (
+            auth()
+                ->user()
+                ->hasRole('admin')
+        ) {
             return $next($request);
         }
 
@@ -27,6 +31,6 @@ class EnsureOwnerMiddleware
             //abort(403, 'Unauthorized');
             return $next($request);
         }
-        return abort(403, 'Unauthorized');     
+        return abort(403, 'Unauthorized');
     }
 }

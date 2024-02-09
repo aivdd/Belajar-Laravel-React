@@ -10,9 +10,7 @@ class BookExports implements FromCollection
     public function collection()
     {
         $user = auth()->user();
-        $books = $user->hasRole('admin')
-        ? Book::all()
-        : $user->books;
+        $books = $user->hasRole('admin') ? Book::all() : $user->books;
         return $books;
     }
 }

@@ -16,7 +16,7 @@ class BookPolicy
         if ($user->hasRole('admin')) {
             return true;
         }
-    
+
         return null;
     }
     /**

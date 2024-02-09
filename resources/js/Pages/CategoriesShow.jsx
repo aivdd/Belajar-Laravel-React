@@ -1,37 +1,37 @@
-import DataTable from "@/Components/DataTable";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import DataTable from '@/Components/DataTable'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head } from '@inertiajs/react'
 
 export default function CategoriesShow({ auth, books, name }) {
-    const rowHeight = 200;
+    const rowHeight = 200
 
     const columns = [
         {
-            field: "id",
-            headerName: "ID",
-            type: "number",
+            field: 'id',
+            headerName: 'ID',
+            type: 'number',
             width: 90,
         },
         {
-            field: "cover",
-            headerName: "Cover",
-            type: "string",
+            field: 'cover',
+            headerName: 'Cover',
+            type: 'string',
             width: 200,
         },
         {
-            field: "judul",
-            headerName: "Judul",
-            type: "string",
+            field: 'judul',
+            headerName: 'Judul',
+            type: 'string',
             sortable: false,
             width: 300,
         },
 
         {
-            field: "jumlah",
-            headerName: "Jumlah",
+            field: 'jumlah',
+            headerName: 'Jumlah',
             width: 150,
         },
-    ];
+    ]
 
     const rows = books.map((book) => ({
         id: book.id,
@@ -39,7 +39,7 @@ export default function CategoriesShow({ auth, books, name }) {
         cover: book.cover,
         judul: book.judul,
         jumlah: book.jumlah,
-    }));
+    }))
 
     return (
         <AuthenticatedLayout
@@ -66,5 +66,5 @@ export default function CategoriesShow({ auth, books, name }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

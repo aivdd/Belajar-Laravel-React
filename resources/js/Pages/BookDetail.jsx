@@ -1,5 +1,5 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head, Link } from '@inertiajs/react'
 
 export default function BookDetail({
     auth,
@@ -12,11 +12,11 @@ export default function BookDetail({
     cover,
 }) {
     const downloadPdf = () => {
-        const BASE_URL = "http://127.0.0.1:8000";
-        const pdfUrl = `${BASE_URL}/storage/${files}`;
+        const BASE_URL = 'http://127.0.0.1:8000'
+        const pdfUrl = `${BASE_URL}/storage/${files}`
 
-        window.open(pdfUrl, "_blank");
-    };
+        window.open(pdfUrl, '_blank')
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -33,23 +33,23 @@ export default function BookDetail({
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <img
-                                src={"/storage/" + cover}
-                                alt={"Image " + judul}
+                                src={'/storage/' + cover}
+                                alt={'Image ' + judul}
                                 style={{
-                                    width: "20%",
-                                    height: "20%",
-                                    objectFit: "cover",
-                                    padding: "32px",
+                                    width: '20%',
+                                    height: '20%',
+                                    objectFit: 'cover',
+                                    padding: '32px',
                                 }}
                             />
                             <h1 className="text-lg font-bold text-gray-900">
                                 {judul}
                             </h1>
                             <p>
-                                Kategori:{" "}
+                                Kategori:{' '}
                                 <Link
                                     href={route(
-                                        "categories.show",
+                                        'categories.show',
                                         category_uuid,
                                     )}
                                     className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -76,5 +76,5 @@ export default function BookDetail({
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

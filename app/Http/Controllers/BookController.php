@@ -21,12 +21,21 @@ class BookController extends Controller
     {
         $this->authorize('viewAny', Book::class);
 
-        $booksQuery = auth()->user()->hasRole('admin') ? Book::with('category') : auth()->user()->books()->with('category');
+        $booksQuery = auth()
+            ->user()
+            ->hasRole('admin')
+            ? Book::with('category')
+            : auth()
+                ->user()
+                ->books()
+                ->with('category');
 
-        return Inertia::render('Book',[
+        return Inertia::render('Book', [
             'books' => $booksQuery->get(),
-            'category'=> BookCategory::all(),
-            'canManageCategories' => auth()->user()->can('manage categories'),
+            'category' => BookCategory::all(),
+            'canManageCategories' => auth()
+                ->user()
+                ->can('manage categories'),
         ]);
     }
 
@@ -35,8 +44,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return Inertia::render('BookTambah',[
-            'categories' => BookCategory::all()
+        return Inertia::render('BookTambah', [
+            'categories' => BookCategory::all(),
         ]);
     }
 
@@ -44,7 +53,7 @@ class BookController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreBookRequest $request)
-    {    
+    {
         $book = new Book([
             'judul' => $request->input('judul'),
             'deskripsi' => $request->input('deskripsi'),
@@ -52,11 +61,14 @@ class BookController extends Controller
             'category_id' => $request->input('category_id'),
             'user_id' => auth()->user()->id,
             'cover' => $request->file('cover')->store('assets/cover', 'public'),
-            'files' => $request->file('files')->store('assets/files', 'public')
+            'files' => $request->file('files')->store('assets/files', 'public'),
         ]);
         $book->save();
 
-        return Redirect::route('books')->with('successMessage', 'Sukses Tambah Buku');
+        return Redirect::route('books')->with(
+            'successMessage',
+            'Sukses Tambah Buku'
+        );
     }
 
     /**
@@ -64,7 +76,9 @@ class BookController extends Controller
      */
     public function show($uuid)
     {
-        $book = Book::where('uuid',$uuid)->with('category')->firstOrFail();
+        $book = Book::where('uuid', $uuid)
+            ->with('category')
+            ->firstOrFail();
         return Inertia::render('BookDetail', [
             'judul' => $book->judul,
             'category' => $book->category->name,
@@ -81,9 +95,11 @@ class BookController extends Controller
      */
     public function edit($uuid)
     {
-        return Inertia::render('BookEdit',[
-            'book'=>Book::where('uuid', $uuid)->with('category')->firstOrFail(),
-            'categories' => BookCategory::all()
+        return Inertia::render('BookEdit', [
+            'book' => Book::where('uuid', $uuid)
+                ->with('category')
+                ->firstOrFail(),
+            'categories' => BookCategory::all(),
         ]);
     }
 
@@ -92,7 +108,7 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, $uuid)
     {
-        $book = Book::where('uuid',$uuid)->firstOrFail();
+        $book = Book::where('uuid', $uuid)->firstOrFail();
 
         $book->judul = $request->input('judul');
         $book->deskripsi = $request->input('deskripsi');
@@ -100,10 +116,14 @@ class BookController extends Controller
         $book->category_id = $request->input('category_id');
 
         if ($request->hasFile('cover')) {
-            $book->cover = $request->file('cover')->store('assets/cover', 'public');
+            $book->cover = $request
+                ->file('cover')
+                ->store('assets/cover', 'public');
         }
         if ($request->hasFile('files')) {
-            $book->files = $request->file('files')->store('assets/files', 'public');
+            $book->files = $request
+                ->file('files')
+                ->store('assets/files', 'public');
         }
 
         $book->save();
@@ -116,12 +136,14 @@ class BookController extends Controller
      */
     public function destroy($uuid)
     {
-        Book::where('uuid',$uuid)->first()->delete();
+        Book::where('uuid', $uuid)
+            ->first()
+            ->delete();
         return to_route('books');
     }
 
-    public function export() 
+    public function export()
     {
-        return Excel::download(new BookExports, 'Books.xlsx');
+        return Excel::download(new BookExports(), 'Books.xlsx');
     }
 }

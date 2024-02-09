@@ -1,4 +1,10 @@
-export default function SecondaryButton({ type = 'button', className = '', disabled, children, ...props }) {
+export default function SecondaryButton({
+    type = 'button',
+    className = '',
+    disabled,
+    children,
+    ...props
+}) {
     return (
         <button
             {...props}
@@ -12,5 +18,5 @@ export default function SecondaryButton({ type = 'button', className = '', disab
         >
             {children}
         </button>
-    );
+    )
 }

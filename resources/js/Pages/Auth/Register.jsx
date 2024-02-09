@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { useEffect } from 'react'
+import GuestLayout from '@/Layouts/GuestLayout'
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
+import { Head, Link, useForm } from '@inertiajs/react'
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,19 +12,19 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
-    });
+    })
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
+            reset('password', 'password_confirmation')
+        }
+    }, [])
 
     const submit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route('register'));
-    };
+        post(route('register'))
+    }
 
     return (
         <GuestLayout>
@@ -83,7 +83,10 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel
+                        htmlFor="password_confirmation"
+                        value="Confirm Password"
+                    />
 
                     <TextInput
                         id="password_confirmation"
@@ -92,11 +95,16 @@ export default function Register() {
                         value={data.password_confirmation}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        onChange={(e) =>
+                            setData('password_confirmation', e.target.value)
+                        }
                         required
                     />
 
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <InputError
+                        message={errors.password_confirmation}
+                        className="mt-2"
+                    />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
@@ -113,5 +121,5 @@ export default function Register() {
                 </div>
             </form>
         </GuestLayout>
-    );
+    )
 }

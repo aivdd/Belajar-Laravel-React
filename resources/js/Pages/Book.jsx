@@ -1,10 +1,10 @@
-import DataTable from "@/Components/DataTable";
-import Alert from "@/Components/Alert";
-import InertiaLink from "@/Components/InertiaLink";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
-import { Inertia } from "@inertiajs/inertia";
-import React, { useEffect, useState } from "react";
+import DataTable from '@/Components/DataTable'
+import Alert from '@/Components/Alert'
+import InertiaLink from '@/Components/InertiaLink'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head, Link } from '@inertiajs/react'
+import { Inertia } from '@inertiajs/inertia'
+import React, { useEffect, useState } from 'react'
 
 export default function Book({
     auth,
@@ -12,69 +12,69 @@ export default function Book({
     successMessage,
     canManageCategories,
 }) {
-    const [alert, setAlert] = useState(false);
-    const [deletingBook, setDeletingBook] = useState(null);
+    const [alert, setAlert] = useState(false)
+    const [deletingBook, setDeletingBook] = useState(null)
 
     useEffect(() => {
         if (successMessage) {
-            setAlert(successMessage);
+            setAlert(successMessage)
         }
-    }, [successMessage]);
+    }, [successMessage])
 
     const handleDelete = (uuid) => {
-        Inertia.delete(route("book.destroy", { uuid }));
-        console.log(`Deleting book with UUID: ${uuid}`);
-        setDeletingBook(null);
-    };
+        Inertia.delete(route('book.destroy', { uuid }))
+        console.log(`Deleting book with UUID: ${uuid}`)
+        setDeletingBook(null)
+    }
 
-    const rowHeight = 200;
+    const rowHeight = 200
     const columns = [
         {
-            field: "id",
-            headerName: "ID",
-            type: "number",
+            field: 'id',
+            headerName: 'ID',
+            type: 'number',
             width: 90,
         },
         {
-            field: "cover",
-            headerName: "Cover",
-            type: "string",
+            field: 'cover',
+            headerName: 'Cover',
+            type: 'string',
             width: 200,
         },
         {
-            field: "judul",
-            headerName: "Judul",
-            type: "string",
+            field: 'judul',
+            headerName: 'Judul',
+            type: 'string',
             sortable: false,
             width: 300,
         },
         {
-            field: "category",
-            headerName: "Kategori",
-            type: "string",
+            field: 'category',
+            headerName: 'Kategori',
+            type: 'string',
             sortable: false,
             width: 200,
         },
         {
-            field: "jumlah",
-            headerName: "Jumlah",
+            field: 'jumlah',
+            headerName: 'Jumlah',
             width: 150,
         },
         {
-            field: "actions",
-            type: "actions",
-            headerName: "Actions",
+            field: 'actions',
+            type: 'actions',
+            headerName: 'Actions',
             width: 150,
-            cellClassName: "actions",
+            cellClassName: 'actions',
             getActions: ({ row }) => [
                 <InertiaLink
-                    href={route("book.show", { uuid: row.uuid })}
+                    href={route('book.show', { uuid: row.uuid })}
                     className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     detail
                 </InertiaLink>,
                 <InertiaLink
-                    href={route("book.edit", { uuid: row.uuid })}
+                    href={route('book.edit', { uuid: row.uuid })}
                     className="underline text-sm text-blue-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     edit
@@ -89,7 +89,7 @@ export default function Book({
             ],
             autoWidth: true,
         },
-    ];
+    ]
     const rows = books.map((book) => ({
         id: book.id,
         uuid: book.uuid,
@@ -97,7 +97,7 @@ export default function Book({
         judul: book.judul,
         category: book.category.name,
         jumlah: book.jumlah,
-    }));
+    }))
 
     return (
         <AuthenticatedLayout
@@ -124,7 +124,7 @@ export default function Book({
                                 )}
                             </div>
                             <Link
-                                href={route("book.create")}
+                                href={route('book.create')}
                                 className="ml-4 mb-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                             >
                                 Tambah
@@ -213,5 +213,5 @@ export default function Book({
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

@@ -1,19 +1,19 @@
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import { Head, useForm } from '@inertiajs/react'
 
 export default function CategoriesCreate({ auth }) {
     const { data, setData, post, errors, processing } = useForm({
         name: null,
-    });
+    })
 
     const tambahCategories = (e) => {
-        e.preventDefault();
-        post(route("categories.store"));
-    };
+        e.preventDefault()
+        post(route('categories.store'))
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -39,7 +39,7 @@ export default function CategoriesCreate({ auth }) {
                                         id="name"
                                         value={data.name}
                                         onChange={(e) =>
-                                            setData("name", e.target.value)
+                                            setData('name', e.target.value)
                                         }
                                         type="text"
                                         className="mt-1 block w-full"
@@ -61,5 +61,5 @@ export default function CategoriesCreate({ auth }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-    );
+    )
 }

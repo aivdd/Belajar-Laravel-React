@@ -16,7 +16,7 @@ class BookCategoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Categories',[
+        return Inertia::render('Categories', [
             'categories' => BookCategory::all(),
         ]);
     }
@@ -35,7 +35,7 @@ class BookCategoryController extends Controller
     public function store(StoreBookCategoryRequest $request)
     {
         BookCategory::create([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
         ]);
 
         return to_route('categories.index');
@@ -50,7 +50,7 @@ class BookCategoryController extends Controller
 
         return Inertia::render('CategoriesShow', [
             'books' => Book::where('category_id', $category->id)->get(),
-            'name' => $category->name
+            'name' => $category->name,
         ]);
     }
 
@@ -85,7 +85,9 @@ class BookCategoryController extends Controller
      */
     public function destroy($uuid)
     {
-        BookCategory::where('uuid', $uuid)->first()->delete();
+        BookCategory::where('uuid', $uuid)
+            ->first()
+            ->delete();
 
         return to_route('categories.index');
     }
